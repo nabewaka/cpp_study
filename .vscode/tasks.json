@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "g++-16: build and run active file",
+      "type": "shell",
+      "command": "/opt/homebrew/bin/g++-16 -std=c++17 -g \"${file}\" -o \"${fileDirname}/${fileBasenameNoExtension}\" && \"${fileDirname}/${fileBasenameNoExtension}\"",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": false
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "g++-16: build active file",
+      "type": "shell",
+      "command": "/opt/homebrew/bin/g++-16",
+      "args": ["-std=c++17", "-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
