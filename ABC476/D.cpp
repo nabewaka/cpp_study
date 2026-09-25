@@ -29,143 +29,44 @@ int main()
         B_pq.push(temp);
     }
 
+    // デザートの累積和
+    vector<long long> A_sum(N_de + 1, 0);
+    for (int i = 0; i < N_de; i++)
+    {
+        A_sum[i + 1] = A_sum[i] + A_pq.top();
+        A_pq.pop();
+    }
+
     int count = 0;
+    int drink_count = 0;
+
     while (1)
     {
-        if (A_pq.empty())
+        // 今の手持ち(K*Y + X)で買えるデザートの最大個数
+        long long money = K * Y + X;
+        int dessert_count = upper_bound(A_sum.begin(), A_sum.end(), money) - A_sum.begin() - 1;
+
+        count = max(count, drink_count + dessert_count);
+
+        if (B_pq.empty())
         {
-            if (B_pq.empty())
-            {
-                break;
-            }
-
-            if ((double)K * Y >= B_pq.top())
-            {
-                int use_K = 0;
-                int change_1 = 0;
-
-                use_K = B_pq.top() / K;
-                Y -= use_K;
-
-                change_1 = B_pq.top() % K;
-                X += change_1;
-
-                count++;
-                B_pq.pop();
-            }
-            else
-            {
-                break;
-            }
-        }
-        else if (B_pq.empty())
-        {
-            if ((double)K * Y + X < A_pq.top())
-            {
-                break;
-            }
-            else
-            {
-                int use_K = 0;
-                int use_1 = 0;
-                int change_1 = 0;
-                if ((double)K * Y >= A_pq.top())
-                {
-                    if (A_pq.top() % K == 0)
-                    {
-                        use_K = A_pq.top() / K;
-                    }
-                    else
-                    {
-                        use_K = A_pq.top() / K + 1;
-                        Y -= use_K;
-
-                        change_1 = use_K * (K + 1) - A_pq.top();
-                        X += change_1;
-                    }
-                }else{
-                    if(K == 0){
-                        if(X < A_pq.top()){
-                            break;
-                        }else{
-                            X -= A_pq.top();
-                        }
-                    }else{
-                        int temp =  A_pq.top() - K*Y;
-                        Y = 0;
-
-                        X -= temp;
-
-                    }
-                }
-                count++; A_pq.pop();
-            }
-        }
-        else if (B_pq.top() <= A_pq.top() && (double)K * Y >= B_pq.top())
-        {
-            int use_K = 0;
-            int change_1 = 0;
-
-            if (B_pq.top() % K == 0)
-            {
-                use_K = B_pq.top() / K;
-            }
-            else
-            {
-                use_K = B_pq.top() / K + 1;
-                Y -= use_K;
-
-                change_1 = use_K * (K + 1) - B_pq.top();
-                X += change_1;
-            }
-
-            count++;
-            B_pq.pop();
-        }
-        else
-        {
-            if ((double)K * Y + X < A_pq.top())
-            {
-                break;
-            }
-            else
-            {
-                int use_K = 0;
-                int use_1 = 0;
-                int change_1 = 0;
-                if ((double)K * Y >= A_pq.top())
-                {
-                    if (A_pq.top() % K == 0)
-                    {
-                        use_K = A_pq.top() / K;
-                    }
-                    else
-                    {
-                        use_K = A_pq.top() / K + 1;
-                        Y -= use_K;
-
-                        change_1 = use_K * (K + 1) - A_pq.top();
-                        X += change_1;
-                    }
-                }else{
-                    if(K == 0){
-                        if(X < A_pq.top()){
-                            break;
-                        }else{
-                            X -= A_pq.top();
-                        }
-                    }else{
-                        int temp =  A_pq.top() - K*Y;
-                        Y = 0;
-
-                        X -= temp;
-
-                    }
-                }
-                count++; A_pq.pop();
-            }
+            break;
         }
 
+        // 次に安いドリンクを K ドル紙幣だけで買う
+        long long use_K = (B_pq.top() + K - 1) / K;
+        if (Y < use_K)
+        {
+            break;
+        }
+
+        long long change_1 = use_K * K - B_pq.top();
+        Y -= use_K;
+        X += change_1;
+
+        drink_count++;
+        B_pq.pop();
     }
+    
     cout << count << endl;
 }
