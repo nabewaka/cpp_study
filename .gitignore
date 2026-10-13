@@ -1,7 +1,0 @@
-# .cpp と .vscode 設定以外はすべて無視
-*
-!.gitignore
-!.vscode/
-!.vscode/**
-!*.cpp
-!*/

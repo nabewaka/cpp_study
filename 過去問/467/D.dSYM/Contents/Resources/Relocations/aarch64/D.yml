@@ -1,0 +1,9 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     "/Users/manabe/GitHub/cpp-study/過去問/467/D"
+relocations:
+  - { offset: 0x15E6E, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x626B5, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offset: 0x16061, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_D.cpp, symObjAddr: 0x398, symBinAddr: 0x100000A2C, symSize: 0x14 }
+  - { offset: 0x16078, size: 0x8, addend: 0x0, symName: __Z41__static_initialization_and_destruction_0v, symObjAddr: 0x35C, symBinAddr: 0x1000009F0, symSize: 0x3C }
+  - { offset: 0x16096, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000006A0, symSize: 0x350 }
+...
