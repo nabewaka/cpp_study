@@ -14,20 +14,17 @@ int main()
 
     sort(A.begin(), A.end());
 
-    int sh_time = 0;
+    while(A.size() && A.back() > T) a.pop_back();
+    a.push_back(T);
+    n = A.size();
+
     int ans = 0;
-
-    int a_num = 0;
-    if (A[a_num] == 0)
-    {
-        sh_time = K;
-        a_num++;
-    }
-
-    for (a_num; a_num < N-1; a_num++)
-    {
-        int diff = A[a_num + 1]- A[a_num]
-
+    int r = 0;
+    for(int x : a){
+        if(r < x){
+            ans += (x-r + k-1)/k;
+        }
+        r = x+K;
     }
     cout << ans << endl;
 }
