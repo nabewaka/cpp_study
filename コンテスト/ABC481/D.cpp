@@ -41,7 +41,7 @@ int main()
 
     while(q.size()){
         auto [d,v] = q.front(); q.pop_front();
-        if(dist[v] != d) continue;
+        if(dist[v] < d) continue;// != よりも < の方が納得感がある
         for(auto [u,c]: g[v]) push(u,d,c);
     }
 
